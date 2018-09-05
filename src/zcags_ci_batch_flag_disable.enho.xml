@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_ENHO" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <TOOL>HOOK_IMPL</TOOL>
+   <SHORTTEXT>.</SHORTTEXT>
+   <ORIGINAL_OBJECT>
+    <PGMID>R3TR</PGMID>
+    <ORG_OBJ_TYPE>FUGR</ORG_OBJ_TYPE>
+    <ORG_OBJ_NAME>SAUCV_GUI_RUNNER</ORG_OBJ_NAME>
+    <ORG_MAIN_TYPE>FUGR</ORG_MAIN_TYPE>
+    <ORG_MAIN_NAME>SAUCV_GUI_RUNNER</ORG_MAIN_NAME>
+    <PROGRAMNAME>SAPLSAUCV_GUI_RUNNER</PROGRAMNAME>
+   </ORIGINAL_OBJECT>
+   <ENHANCEMENTS>
+    <ENH_HOOK_IMPL>
+     <PROGRAMNAME>SAPLSAUCV_GUI_RUNNER</PROGRAMNAME>
+     <EXTID>1</EXTID>
+     <ID>1</ID>
+     <ENHMODE>D</ENHMODE>
+     <FULL_NAME>\FU:SABP_AU_TEST_ITEMS_FROM_IDE\SE:END\EI</FULL_NAME>
+     <SOURCE>
+      <item/>
+      <item>*&quot; It is required to replace default submit with customized</item>
+      <item>*&quot; to avoid sy-batch check up.</item>
+      <item>*&quot; Implicit enhancement is not possible at the begining of saunit_Test_Items_From_Ide</item>
+      <item>*IF ( zcl_cags_ci_report=&gt;get_instance( )-&gt;is_on( ) = abap_true ).</item>
+      <item>*</item>
+      <item>*  IF ( sy-batch = &apos;X&apos; ).</item>
+      <item>*</item>
+      <item>*    submit</item>
+      <item>*      zcags_saunit_Test_From_Ide</item>
+      <item>*        with p_Keys = tadir_Keys</item>
+      <item>*        with p_Cvrg = with_Coverage</item>
+      <item>*        with p_Risk = limit_On_Risk_Level</item>
+      <item>*        with p_Durat = limit_On_Duration_Category</item>
+      <item>*      and return.</item>
+      <item>*</item>
+      <item>*  ENDIF.</item>
+      <item>*</item>
+      <item>*ENDIF.</item>
+      <item/>
+     </SOURCE>
+    </ENH_HOOK_IMPL>
+    <ENH_HOOK_IMPL>
+     <PROGRAMNAME>SAPLSAUCV_GUI_RUNNER</PROGRAMNAME>
+     <EXTID>2</EXTID>
+     <ID>2</ID>
+     <ENHMODE>D</ENHMODE>
+     <FULL_NAME>\FU:_SAUCV_RUN_TESTS_AND_DISPLAY\SE:BEGIN\EI</FULL_NAME>
+     <SOURCE>
+      <item/>
+      <item>*  IF ( zcl_cags_ci_report=&gt;get_instance( )-&gt;is_on( ) = abap_true ).</item>
+      <item>*</item>
+      <item>*    sy-batch = abap_false.</item>
+      <item>*</item>
+      <item>*  ENDIF.</item>
+      <item/>
+     </SOURCE>
+    </ENH_HOOK_IMPL>
+   </ENHANCEMENTS>
+   <SPACES>
+    <item>
+     <FULL_NAME>\FU:SABP_AU_TEST_ITEMS_FROM_IDE\SE:END\EI</FULL_NAME>
+     <SPACES>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+     </SPACES>
+    </item>
+    <item>
+     <FULL_NAME>\FU:_SAUCV_RUN_TESTS_AND_DISPLAY\SE:BEGIN\EI</FULL_NAME>
+     <SPACES>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+     </SPACES>
+    </item>
+   </SPACES>
+  </asx:values>
+ </asx:abap>
+</abapGit>

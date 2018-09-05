@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_ENHO" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <TOOL>HOOK_IMPL</TOOL>
+   <SHORTTEXT>.</SHORTTEXT>
+   <ORIGINAL_OBJECT>
+    <PGMID>R3TR</PGMID>
+    <ORG_OBJ_TYPE>CLAS</ORG_OBJ_TYPE>
+    <ORG_OBJ_NAME>CL_AUNIT_TASK</ORG_OBJ_NAME>
+    <ORG_MAIN_TYPE>CLAS</ORG_MAIN_TYPE>
+    <ORG_MAIN_NAME>CL_AUNIT_TASK</ORG_MAIN_NAME>
+    <PROGRAMNAME>CL_AUNIT_TASK=================CP</PROGRAMNAME>
+   </ORIGINAL_OBJECT>
+   <ENHANCEMENTS>
+    <ENH_HOOK_IMPL>
+     <PROGRAMNAME>CL_AUNIT_TASK=================CP</PROGRAMNAME>
+     <EXTID>1</EXTID>
+     <ID>1</ID>
+     <ENHMODE>D</ENHMODE>
+     <FULL_NAME>\PR:CL_AUNIT_TASK=================CP\TY:TASK\IN:IF_AUNIT_TASK\ME:RUN\SE:END\EI</FULL_NAME>
+     <SOURCE>
+      <item/>
+      <item>*  DATA lo_zcl_cags_ci_report TYPE REF TO zcl_cags_ci_report.</item>
+      <item>*</item>
+      <item>*  lo_zcl_cags_ci_report = zcl_cags_ci_report=&gt;get_instance( ).</item>
+      <item>*</item>
+      <item>*  IF ( lo_zcl_cags_ci_report-&gt;is_on( ) = abap_true ).</item>
+      <item>*</item>
+      <item>*    lo_zcl_cags_ci_report-&gt;update_summary_save_files( f_task-programs ).</item>
+      <item>*</item>
+      <item>*    EXIT. &quot; to avoid gui display</item>
+      <item>*</item>
+      <item>*  ENDIF.</item>
+      <item/>
+     </SOURCE>
+    </ENH_HOOK_IMPL>
+   </ENHANCEMENTS>
+   <SPACES>
+    <item>
+     <FULL_NAME>\PR:CL_AUNIT_TASK=================CP\TY:TASK\IN:IF_AUNIT_TASK\ME:RUN\SE:END\EI</FULL_NAME>
+     <SPACES>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+     </SPACES>
+    </item>
+   </SPACES>
+  </asx:values>
+ </asx:abap>
+</abapGit>

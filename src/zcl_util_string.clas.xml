@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_CLAS" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <VSEOCLASS>
+    <CLSNAME>ZCL_UTIL_STRING</CLSNAME>
+    <VERSION>1</VERSION>
+    <LANGU>E</LANGU>
+    <DESCRIPT>Class for handling common string operations</DESCRIPT>
+    <EXPOSURE>2</EXPOSURE>
+    <STATE>1</STATE>
+    <CLSCCINCL>X</CLSCCINCL>
+    <FIXPT>X</FIXPT>
+    <UNICODE>X</UNICODE>
+   </VSEOCLASS>
+   <DESCRIPTIONS>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_UTIL_STRING</CLSNAME>
+     <CMPNAME>ADD_LEADING_ZEROS</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Add leading zeros</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_UTIL_STRING</CLSNAME>
+     <CMPNAME>CONTAINS_ONLY_DIGITS</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Check if string contains only digits</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_UTIL_STRING</CLSNAME>
+     <CMPNAME>CONTAINS_ONLY_LETTERS</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Check if string contains only letters</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_UTIL_STRING</CLSNAME>
+     <CMPNAME>C_DIGITS</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Digits</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_UTIL_STRING</CLSNAME>
+     <CMPNAME>C_LETTERS</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Standard letters</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_UTIL_STRING</CLSNAME>
+     <CMPNAME>REMOVE_LEADING_ZEROS</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Remove leading zeros</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_UTIL_STRING</CLSNAME>
+     <CMPNAME>REMOVE_PREFIX</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Remove prefix based on number of characters</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_UTIL_STRING</CLSNAME>
+     <CMPNAME>STARTS_WITH</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Check if string start with prefix</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_UTIL_STRING</CLSNAME>
+     <CMPNAME>SUBSTRING</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Get substring of a string</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_UTIL_STRING</CLSNAME>
+     <CMPNAME>TO_LOWER_CASE</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Convert string to lower case</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_UTIL_STRING</CLSNAME>
+     <CMPNAME>TO_UPPER_CASE</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Convert string to upper case</DESCRIPT>
+    </SEOCOMPOTX>
+   </DESCRIPTIONS>
+  </asx:values>
+ </asx:abap>
+</abapGit>

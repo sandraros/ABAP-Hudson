@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_ENHO" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <TOOL>HOOK_IMPL</TOOL>
+   <SHORTTEXT>.</SHORTTEXT>
+   <ORIGINAL_OBJECT>
+    <PGMID>R3TR</PGMID>
+    <ORG_OBJ_TYPE>PROG</ORG_OBJ_TYPE>
+    <ORG_OBJ_NAME>RS_AUCV_RUNNER</ORG_OBJ_NAME>
+    <ORG_MAIN_TYPE>PROG</ORG_MAIN_TYPE>
+    <ORG_MAIN_NAME>RS_AUCV_RUNNER</ORG_MAIN_NAME>
+    <PROGRAMNAME>RS_AUCV_RUNNER</PROGRAMNAME>
+   </ORIGINAL_OBJECT>
+   <ENHANCEMENTS>
+    <ENH_HOOK_IMPL>
+     <PROGRAMNAME>RS_AUCV_RUNNER</PROGRAMNAME>
+     <EXTID>1</EXTID>
+     <ID>1</ID>
+     <ENHMODE>D</ENHMODE>
+     <FULL_NAME>\PR:RS_AUCV_RUNNER\TY:TEST_RUNNER\ME:SELECT_OBJECTS\SE:END\EI</FULL_NAME>
+     <SOURCE>
+      <item/>
+      <item>*&quot; Extract all objects for code coverage measurements</item>
+      <item>*&quot; with empty coverage values by default</item>
+      <item>*DATA lo_zcl_cags_ci_report TYPE REF TO zcl_cags_ci_report.</item>
+      <item>*lo_zcl_cags_ci_report = zcl_cags_ci_report=&gt;get_instance( ).</item>
+      <item>*IF ( lo_zcl_cags_ci_report-&gt;is_on( ) = abap_true ).</item>
+      <item>*</item>
+      <item>*  DATA lo_coverage TYPE REF TO zcl_cags_ci_code_coverage.</item>
+      <item>*  DATA ls_class_coverage TYPE zcags_ci_code_coverage_s.</item>
+      <item>*  DATA l_object_full_name TYPE string.  &quot; With CP at the end for class</item>
+      <item>*  DATA l_object_name TYPE string.</item>
+      <item>*  DATA l_package_name TYPE string.</item>
+      <item>*</item>
+      <item>*  lo_coverage = zcl_cags_ci_code_coverage=&gt;get_instance( ).</item>
+      <item>*</item>
+      <item>*  IF ( lo_coverage-&gt;is_coverage_enabled( ) = abap_true ).</item>
+      <item>*</item>
+      <item>*    loop AT me-&gt;f_programs ASSIGNING &lt;program&gt;.</item>
+      <item>*</item>
+      <item>*      IF ( &lt;program&gt;-obj_type = &apos;CLAS&apos; OR</item>
+      <item>*        lo_zcl_cags_ci_report-&gt;is_coverage_only_for_classes( ) = abap_false ).</item>
+      <item>*</item>
+      <item>*        l_object_name = &lt;program&gt;-obj_name.</item>
+      <item>*        l_object_full_name = &lt;program&gt;-name.</item>
+      <item>*        l_package_name = &lt;program&gt;-package.</item>
+      <item>*</item>
+      <item>*        ls_class_coverage = lo_coverage-&gt;create_no_covered_class(</item>
+      <item>*          i_object_full_name  = l_object_full_name</item>
+      <item>*          i_object_name       = l_object_name</item>
+      <item>*          i_package_name      = l_package_name</item>
+      <item>*        ).</item>
+      <item>*</item>
+      <item>*        IF ( ls_class_coverage IS NOT INITIAL ).</item>
+      <item>*</item>
+      <item>*          lo_coverage-&gt;add_class_coverage( ls_class_coverage ).</item>
+      <item>*</item>
+      <item>*        ENDIF.</item>
+      <item>*</item>
+      <item>*      ENDIF.</item>
+      <item>*    ENDLOOP.</item>
+      <item>*</item>
+      <item>*    lo_coverage-&gt;save_to_memory( ).</item>
+      <item>*</item>
+      <item>*  ENDIF.</item>
+      <item>*</item>
+      <item>*ENDIF.</item>
+      <item/>
+     </SOURCE>
+    </ENH_HOOK_IMPL>
+   </ENHANCEMENTS>
+   <SPACES>
+    <item>
+     <FULL_NAME>\PR:RS_AUCV_RUNNER\TY:TEST_RUNNER\ME:SELECT_OBJECTS\SE:END\EI</FULL_NAME>
+     <SPACES>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+     </SPACES>
+    </item>
+   </SPACES>
+  </asx:values>
+ </asx:abap>
+</abapGit>
