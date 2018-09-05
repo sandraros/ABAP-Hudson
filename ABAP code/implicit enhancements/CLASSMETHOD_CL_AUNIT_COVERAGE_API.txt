@@ -1,0 +1,36 @@
+method prepare_Coverage_Analysis.
+
+  data:
+     rc          type i,
+     scov_Key    type c length 4,
+     err_Text    type c length 128.
+
+  scov_Key = coverage_Key.
+
+  call 'COV_INFO'
+    id 'FCODE'   field 'S'
+    id 'FIELD'   field 'U'
+    id 'VALUE'   field 'X'
+    id 'TESTKEY' field scov_Key
+    id 'RC'      field rc
+    id 'ERRTEXT' field err_Text.
+
+  if ( 0 ne rc ).
+    raise exception type lcx_Kernel_Error exporting
+      rc = rc
+      err_Text = err_Text.
+  endif.
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""$"$\SE:(1) Class CL_AUNIT_COVERAGE_API, Method PREPARE_COVERAGE_ANALYSIS, End                                                                                A
+*$*$-Start: (1)---------------------------------------------------------------------------------$*$*
+ENHANCEMENT 1  ZCAGS_CI_COVERAGE_EXPORT_KEY.    "active version
+
+  DATA lo_code_coverage TYPE REF TO zcl_cags_ci_code_coverage.
+  lo_code_coverage = zcl_cags_ci_code_coverage=>get_instance( ).
+  IF ( lo_code_coverage->is_coverage_enabled( ) = abap_true ).
+    lo_code_coverage->set_coverage_key( coverage_key ).
+  ENDIF.
+
+ENDENHANCEMENT.
+*$*$-End:   (1)---------------------------------------------------------------------------------$*$*
+endmethod.

@@ -1,0 +1,76 @@
+*&---------------------------------------------------------------------*
+*&  Include           LSAUNIT_EU_INTERFACEF00
+*&---------------------------------------------------------------------*
+
+
+class lcl_Extended_Listener implementation.
+
+  method do_Final_Evaluation.
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""$"$\SE:(1) Class LCL_EXTENDED_LISTENER, Method DO_FINAL_EVALUATION, Start                                                                                    A
+*$*$-Start: (1)---------------------------------------------------------------------------------$*$*
+ENHANCEMENT 1  ZCAGS_CI_SUMMARY.    "active version
+
+  DATA lo_zcl_cags_ci_report TYPE REF TO zcl_cags_ci_report.
+
+  lo_zcl_cags_ci_report = zcl_cags_ci_report=>get_instance( ).
+
+  IF ( lo_zcl_cags_ci_report->is_on( ) = abap_true ).
+
+    lo_zcl_cags_ci_report->update_summary_save_files( f_task-programs ).
+
+    EXIT. " to avoid gui display
+
+  ENDIF.
+
+ENDENHANCEMENT.
+*$*$-End:   (1)---------------------------------------------------------------------------------$*$*
+* ==========================
+
+    if ( abap_True ne fg_No_Out ).
+      super->do_Final_Evaluation( ).
+    else.
+      fg_Eval = me.
+    endif.
+
+  endmethod.
+
+  method get_Eval.
+* ===============
+    result = fg_Eval.
+
+  endmethod.
+
+
+  method set_No_Out.
+* ==================
+    fg_No_Out = abap_True.
+
+  endmethod.
+
+endclass.
+
+class lcl_Scov implementation.
+
+  method create_New_Listener.
+* ===========================
+
+    data:
+      proxy_Class     type string,
+      mediator_Class  type string,
+      result_Class    type string,
+      ui_plug         type ref to if_Saunit_Extended_Ui_Plug.
+
+   create object ui_Plug type cl_Saunit_SCov_Ui_Plug.
+   proxy_Class =    ui_Plug->get_Proxy_Class_Name( ).
+   result_Class =   ui_Plug->get_Result_Handler_Class_Name( ).
+   mediator_Class = ui_Plug->get_Mediator_Class_Name( ).
+
+   create object result type lcl_Extended_Listener
+     exporting
+       ui_Mediator   = mediator_Class
+       proxy_Handler = proxy_class
+       extended_Result_Handler = result_Class.
+
+   endmethod.
+
+endclass.

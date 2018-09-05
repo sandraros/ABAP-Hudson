@@ -1,0 +1,100 @@
+FUNCTION SABP_AU_TEST_ITEMS_FROM_IDE .
+*"----------------------------------------------------------------------
+*"*"Local Interface:
+*"  IMPORTING
+*"     VALUE(TADIR_KEYS) TYPE  SABP_T_TADIR_KEYS
+*"     REFERENCE(WITH_COVERAGE) TYPE  ABAP_BOOL OPTIONAL
+*"     REFERENCE(WITH_AUTHORITY_CHECK) TYPE  ABAP_BOOL DEFAULT
+*"       ABAP_TRUE
+*"     REFERENCE(LIMIT_ON_RISK_LEVEL) TYPE  SAUNIT_D_ALLOWED_RISK_LEVEL
+*"       OPTIONAL
+*"     REFERENCE(LIMIT_ON_DURATION_CATEGORY) TYPE
+*"        SAUNIT_D_ALLOWED_RT_DURATION OPTIONAL
+*"----------------------------------------------------------------------
+
+  data:
+    tadir_Key         type sabp_S_Tadir_Key,
+    prog_Name         type progname,
+    is_Authorized     type abap_Bool,
+    test_Info_Prog    type if_Aunit_Prog_Info_Types=>ty_S_Program,
+    with_Test_Code    type abap_Bool.
+
+  " precheck
+  if ( abap_False eq
+    cl_Aunit_Permission_Control=>is_Test_Enabled_Client( )  ).
+    message s200 display like 'W'.
+    return.
+  endif.
+
+  delete tadir_Keys where
+    obj_Type ne 'FUGR' and
+    obj_Type ne 'CLAS' and
+    obj_Type ne 'PROG' and
+    obj_Type ne 'DEVC'.
+
+  if ( abap_True  eq with_Authority_Check ).
+    loop at tadir_Keys into tadir_Key.
+      is_Authorized =
+        cl_Aunit_Permission_Control=>is_Authorized_To_Use_In_Ide(
+          obj_Name = tadir_Key-obj_Name
+          obj_Type = tadir_Key-obj_Type ).
+      if ( abap_False eq is_Authorized ).
+        message
+          'You are not authorized to execute this test'(nau)
+          type 'S' display like 'W'.
+        return.
+      endif.
+    endloop.
+  endif.
+
+  loop at tadir_Keys into tadir_Key.
+    select single obj_Name
+      from tadir
+      into prog_Name
+      where
+        pgmid =   'R3TR'                and
+        object =   tadir_Key-obj_Type   and
+        obj_Name = tadir_Key-obj_Name.
+    if ( 0 ne sy-subrc ).
+      message s202 display like 'W'
+        with tadir_Key-obj_Type tadir_Key-obj_Name.
+      return.
+    endif.
+  endloop.
+
+  " to ensure a zero memory foot print it is desirable to start the
+  " display in a separate session by the means of submit
+  submit
+    saunit_Test_Items_From_Ide
+      with p_Keys = tadir_Keys
+      with p_Cvrg = with_Coverage
+      with p_Risk = limit_On_Risk_Level
+      with p_Durat = limit_On_Duration_Category
+    and return.
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""$"$\SE:(1) Function Module SABP_AU_TEST_ITEMS_FROM_IDE, End                                                                                                  A
+*$*$-Start: (1)---------------------------------------------------------------------------------$*$*
+ENHANCEMENT 1  ZCAGS_CI_BATCH_FLAG_DISABLE.    "active version
+
+" It is required to replace default submit with customized
+" to avoid sy-batch check up.
+" Implicit enhancement is not possible at the begining of saunit_Test_Items_From_Ide
+IF ( zcl_cags_ci_report=>get_instance( )->is_on( ) = abap_true ).
+
+  IF ( sy-batch = 'X' ).
+
+    submit
+      zcags_saunit_Test_From_Ide
+        with p_Keys = tadir_Keys
+        with p_Cvrg = with_Coverage
+        with p_Risk = limit_On_Risk_Level
+        with p_Durat = limit_On_Duration_Category
+      and return.
+
+  ENDIF.
+
+ENDIF.
+
+ENDENHANCEMENT.
+*$*$-End:   (1)---------------------------------------------------------------------------------$*$*
+endfunction.

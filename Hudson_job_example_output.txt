@@ -1,0 +1,484 @@
+Started by timer
+[d83_results] $ cmd /c call C:\Users\adkra\AppData\Local\Temp\hudson897786288371358212.bat
+1. Deleting 4 files locally
+
+C:\appl\ci\d83_results>del C:\appl\ci\d83_results\D83_CI_ABAP_UNIT_USER.XML 
+
+C:\appl\ci\d83_results>del C:\appl\ci\d83_results\D83_CI_ABAP_COVERAGE_USER.XML 
+
+C:\appl\ci\d83_results>del C:\appl\ci\d83_results\D83_CI_ABAP_UNIT_PACKAGE.XML 
+
+C:\appl\ci\d83_results>del C:\appl\ci\d83_results\D83_CI_ABAP_COVERAGE_PACKAGE.XML 
+2. Submit testing
+
+C:\appl\ci\d83_results>C:\appl\WorkTools\wget\wget --secure-protocol=auto --http-user=BATCH_TEST --http-password=Password123 http://sapq152.statoil.no:8014/sap/bc/resources/ci_results/JOBRUN_D83_774888 -O C:\appl\ci\d83_results\runjob.log 
+SYSTEM_WGETRC = c:/progra~1/wget/etc/wgetrc
+syswgetrc = c:/progra~1/wget/etc/wgetrc
+--2014-07-03 04:00:50--  http://sapq152.statoil.no:8014/sap/bc/resources/ci_results/JOBRUN_D83_774888
+Resolving sapq152.statoil.no... 10.217.68.10
+Connecting to sapq152.statoil.no|10.217.68.10|:8014... connected.
+HTTP request sent, awaiting response... 401 Unauthorized
+Connecting to sapq152.statoil.no|10.217.68.10|:8014... connected.
+HTTP request sent, awaiting response... 200 HTTP standard status code
+Length: 21 [text/html]
+Saving to: `C:/appl/ci/d83_results/runjob.log'
+
+     0K                                                       100% 1,83M=0s
+
+2014-07-03 04:00:52 (1,83 MB/s) - `C:/appl/ci/d83_results/runjob.log' saved [21/21]
+
+Runjob result:
+
+C:\appl\ci\d83_results>TYPE C:\appl\ci\d83_results\runjob.log 
+Testing job scheduled3. Wait 10 seconds until tests starts and files are cleaned in SAP
+4. Try to download file periodically
+### Download CI_ABAP_COVERAGE_PACKAGE.XML ###
+
+C:\appl\ci\d83_results>REM Try to download test file user, as this is last file created by report 
+
+C:\appl\ci\d83_results>C:\appl\WorkTools\wget\wget --secure-protocol=auto --http-user=BATCH_TEST --http-password=Password123 http://sapq152.statoil.no:8014/sap/bc/resources/ci_results/D83_CI_ABAP_UNIT_USER.XML -O C:\appl\ci\d83_results/D83_CI_ABAP_UNIT_USER.XML 
+SYSTEM_WGETRC = c:/progra~1/wget/etc/wgetrc
+syswgetrc = c:/progra~1/wget/etc/wgetrc
+--2014-07-03 04:01:01--  http://sapq152.statoil.no:8014/sap/bc/resources/ci_results/D83_CI_ABAP_UNIT_USER.XML
+Resolving sapq152.statoil.no... 10.217.68.10
+Connecting to sapq152.statoil.no|10.217.68.10|:8014... connected.
+HTTP request sent, awaiting response... 401 Unauthorized
+Connecting to sapq152.statoil.no|10.217.68.10|:8014... connected.
+HTTP request sent, awaiting response... 204 HTTP standard status code
+Length: 0 [text/html]
+Saving to: `C:/appl/ci/d83_results/D83_CI_ABAP_UNIT_USER.XML'
+
+     0K                                                        0,00 =0s
+
+2014-07-03 04:01:01 (0,00 B/s) - `C:/appl/ci/d83_results/D83_CI_ABAP_UNIT_USER.XML' saved [0/0]
+
+
+C:\appl\ci\d83_results>REM Check if file is not empty 
+
+C:\appl\ci\d83_results>set "filter=C:\appl\ci\d83_results\D83_CI_ABAP_UNIT_USER.XML" 
+
+C:\appl\ci\d83_results>for %A in (C:\appl\ci\d83_results\D83_CI_ABAP_UNIT_USER.XML) do if %~zA NEQ 0 GOTO waitloopend 
+
+C:\appl\ci\d83_results>if 0 NEQ 0 GOTO waitloopend 
+File not downloaded, waiting 30 seconds
+
+C:\appl\ci\d83_results>goto waitloop 
+### Download CI_ABAP_COVERAGE_PACKAGE.XML ###
+
+C:\appl\ci\d83_results>REM Try to download test file user, as this is last file created by report 
+
+C:\appl\ci\d83_results>C:\appl\WorkTools\wget\wget --secure-protocol=auto --http-user=BATCH_TEST --http-password=Password123 http://sapq152.statoil.no:8014/sap/bc/resources/ci_results/D83_CI_ABAP_UNIT_USER.XML -O C:\appl\ci\d83_results/D83_CI_ABAP_UNIT_USER.XML 
+SYSTEM_WGETRC = c:/progra~1/wget/etc/wgetrc
+syswgetrc = c:/progra~1/wget/etc/wgetrc
+--2014-07-03 04:01:30--  http://sapq152.statoil.no:8014/sap/bc/resources/ci_results/D83_CI_ABAP_UNIT_USER.XML
+Resolving sapq152.statoil.no... 10.217.68.10
+Connecting to sapq152.statoil.no|10.217.68.10|:8014... connected.
+HTTP request sent, awaiting response... 401 Unauthorized
+Connecting to sapq152.statoil.no|10.217.68.10|:8014... connected.
+HTTP request sent, awaiting response... 204 HTTP standard status code
+Length: 0 [text/html]
+Saving to: `C:/appl/ci/d83_results/D83_CI_ABAP_UNIT_USER.XML'
+
+     0K                                                        0,00 =0s
+
+2014-07-03 04:01:31 (0,00 B/s) - `C:/appl/ci/d83_results/D83_CI_ABAP_UNIT_USER.XML' saved [0/0]
+
+
+C:\appl\ci\d83_results>REM Check if file is not empty 
+
+C:\appl\ci\d83_results>set "filter=C:\appl\ci\d83_results\D83_CI_ABAP_UNIT_USER.XML" 
+
+C:\appl\ci\d83_results>for %A in (C:\appl\ci\d83_results\D83_CI_ABAP_UNIT_USER.XML) do if %~zA NEQ 0 GOTO waitloopend 
+
+C:\appl\ci\d83_results>if 0 NEQ 0 GOTO waitloopend 
+File not downloaded, waiting 30 seconds
+
+C:\appl\ci\d83_results>goto waitloop 
+### Download CI_ABAP_COVERAGE_PACKAGE.XML ###
+
+C:\appl\ci\d83_results>REM Try to download test file user, as this is last file created by report 
+
+C:\appl\ci\d83_results>C:\appl\WorkTools\wget\wget --secure-protocol=auto --http-user=BATCH_TEST --http-password=Password123 http://sapq152.statoil.no:8014/sap/bc/resources/ci_results/D83_CI_ABAP_UNIT_USER.XML -O C:\appl\ci\d83_results/D83_CI_ABAP_UNIT_USER.XML 
+SYSTEM_WGETRC = c:/progra~1/wget/etc/wgetrc
+syswgetrc = c:/progra~1/wget/etc/wgetrc
+--2014-07-03 04:02:00--  http://sapq152.statoil.no:8014/sap/bc/resources/ci_results/D83_CI_ABAP_UNIT_USER.XML
+Resolving sapq152.statoil.no... 10.217.68.10
+Connecting to sapq152.statoil.no|10.217.68.10|:8014... connected.
+HTTP request sent, awaiting response... 401 Unauthorized
+Connecting to sapq152.statoil.no|10.217.68.10|:8014... connected.
+HTTP request sent, awaiting response... 204 HTTP standard status code
+Length: 0 [text/html]
+Saving to: `C:/appl/ci/d83_results/D83_CI_ABAP_UNIT_USER.XML'
+
+     0K                                                        0,00 =0s
+
+2014-07-03 04:02:00 (0,00 B/s) - `C:/appl/ci/d83_results/D83_CI_ABAP_UNIT_USER.XML' saved [0/0]
+
+
+C:\appl\ci\d83_results>REM Check if file is not empty 
+
+C:\appl\ci\d83_results>set "filter=C:\appl\ci\d83_results\D83_CI_ABAP_UNIT_USER.XML" 
+
+C:\appl\ci\d83_results>for %A in (C:\appl\ci\d83_results\D83_CI_ABAP_UNIT_USER.XML) do if %~zA NEQ 0 GOTO waitloopend 
+
+C:\appl\ci\d83_results>if 0 NEQ 0 GOTO waitloopend 
+File not downloaded, waiting 30 seconds
+
+C:\appl\ci\d83_results>goto waitloop 
+### Download CI_ABAP_COVERAGE_PACKAGE.XML ###
+
+C:\appl\ci\d83_results>REM Try to download test file user, as this is last file created by report 
+
+C:\appl\ci\d83_results>C:\appl\WorkTools\wget\wget --secure-protocol=auto --http-user=BATCH_TEST --http-password=Password123 http://sapq152.statoil.no:8014/sap/bc/resources/ci_results/D83_CI_ABAP_UNIT_USER.XML -O C:\appl\ci\d83_results/D83_CI_ABAP_UNIT_USER.XML 
+SYSTEM_WGETRC = c:/progra~1/wget/etc/wgetrc
+syswgetrc = c:/progra~1/wget/etc/wgetrc
+--2014-07-03 04:02:29--  http://sapq152.statoil.no:8014/sap/bc/resources/ci_results/D83_CI_ABAP_UNIT_USER.XML
+Resolving sapq152.statoil.no... 10.217.68.10
+Connecting to sapq152.statoil.no|10.217.68.10|:8014... connected.
+HTTP request sent, awaiting response... 401 Unauthorized
+Connecting to sapq152.statoil.no|10.217.68.10|:8014... connected.
+HTTP request sent, awaiting response... 204 HTTP standard status code
+Length: 0 [text/html]
+Saving to: `C:/appl/ci/d83_results/D83_CI_ABAP_UNIT_USER.XML'
+
+     0K                                                        0,00 =0s
+
+2014-07-03 04:02:29 (0,00 B/s) - `C:/appl/ci/d83_results/D83_CI_ABAP_UNIT_USER.XML' saved [0/0]
+
+
+C:\appl\ci\d83_results>REM Check if file is not empty 
+
+C:\appl\ci\d83_results>set "filter=C:\appl\ci\d83_results\D83_CI_ABAP_UNIT_USER.XML" 
+
+C:\appl\ci\d83_results>for %A in (C:\appl\ci\d83_results\D83_CI_ABAP_UNIT_USER.XML) do if %~zA NEQ 0 GOTO waitloopend 
+
+C:\appl\ci\d83_results>if 0 NEQ 0 GOTO waitloopend 
+File not downloaded, waiting 30 seconds
+
+C:\appl\ci\d83_results>goto waitloop 
+### Download CI_ABAP_COVERAGE_PACKAGE.XML ###
+
+C:\appl\ci\d83_results>REM Try to download test file user, as this is last file created by report 
+
+C:\appl\ci\d83_results>C:\appl\WorkTools\wget\wget --secure-protocol=auto --http-user=BATCH_TEST --http-password=Password123 http://sapq152.statoil.no:8014/sap/bc/resources/ci_results/D83_CI_ABAP_UNIT_USER.XML -O C:\appl\ci\d83_results/D83_CI_ABAP_UNIT_USER.XML 
+SYSTEM_WGETRC = c:/progra~1/wget/etc/wgetrc
+syswgetrc = c:/progra~1/wget/etc/wgetrc
+--2014-07-03 04:02:58--  http://sapq152.statoil.no:8014/sap/bc/resources/ci_results/D83_CI_ABAP_UNIT_USER.XML
+Resolving sapq152.statoil.no... 10.217.68.10
+Connecting to sapq152.statoil.no|10.217.68.10|:8014... connected.
+HTTP request sent, awaiting response... 401 Unauthorized
+Connecting to sapq152.statoil.no|10.217.68.10|:8014... connected.
+HTTP request sent, awaiting response... 204 HTTP standard status code
+Length: 0 [text/html]
+Saving to: `C:/appl/ci/d83_results/D83_CI_ABAP_UNIT_USER.XML'
+
+     0K                                                        0,00 =0s
+
+2014-07-03 04:02:59 (0,00 B/s) - `C:/appl/ci/d83_results/D83_CI_ABAP_UNIT_USER.XML' saved [0/0]
+
+
+C:\appl\ci\d83_results>REM Check if file is not empty 
+
+C:\appl\ci\d83_results>set "filter=C:\appl\ci\d83_results\D83_CI_ABAP_UNIT_USER.XML" 
+
+C:\appl\ci\d83_results>for %A in (C:\appl\ci\d83_results\D83_CI_ABAP_UNIT_USER.XML) do if %~zA NEQ 0 GOTO waitloopend 
+
+C:\appl\ci\d83_results>if 0 NEQ 0 GOTO waitloopend 
+File not downloaded, waiting 30 seconds
+
+C:\appl\ci\d83_results>goto waitloop 
+### Download CI_ABAP_COVERAGE_PACKAGE.XML ###
+
+C:\appl\ci\d83_results>REM Try to download test file user, as this is last file created by report 
+
+C:\appl\ci\d83_results>C:\appl\WorkTools\wget\wget --secure-protocol=auto --http-user=BATCH_TEST --http-password=Password123 http://sapq152.statoil.no:8014/sap/bc/resources/ci_results/D83_CI_ABAP_UNIT_USER.XML -O C:\appl\ci\d83_results/D83_CI_ABAP_UNIT_USER.XML 
+SYSTEM_WGETRC = c:/progra~1/wget/etc/wgetrc
+syswgetrc = c:/progra~1/wget/etc/wgetrc
+--2014-07-03 04:03:28--  http://sapq152.statoil.no:8014/sap/bc/resources/ci_results/D83_CI_ABAP_UNIT_USER.XML
+Resolving sapq152.statoil.no... 10.217.68.10
+Connecting to sapq152.statoil.no|10.217.68.10|:8014... connected.
+HTTP request sent, awaiting response... 401 Unauthorized
+Connecting to sapq152.statoil.no|10.217.68.10|:8014... connected.
+HTTP request sent, awaiting response... 204 HTTP standard status code
+Length: 0 [text/html]
+Saving to: `C:/appl/ci/d83_results/D83_CI_ABAP_UNIT_USER.XML'
+
+     0K                                                        0,00 =0s
+
+2014-07-03 04:03:28 (0,00 B/s) - `C:/appl/ci/d83_results/D83_CI_ABAP_UNIT_USER.XML' saved [0/0]
+
+
+C:\appl\ci\d83_results>REM Check if file is not empty 
+
+C:\appl\ci\d83_results>set "filter=C:\appl\ci\d83_results\D83_CI_ABAP_UNIT_USER.XML" 
+
+C:\appl\ci\d83_results>for %A in (C:\appl\ci\d83_results\D83_CI_ABAP_UNIT_USER.XML) do if %~zA NEQ 0 GOTO waitloopend 
+
+C:\appl\ci\d83_results>if 0 NEQ 0 GOTO waitloopend 
+File not downloaded, waiting 30 seconds
+
+C:\appl\ci\d83_results>goto waitloop 
+### Download CI_ABAP_COVERAGE_PACKAGE.XML ###
+
+C:\appl\ci\d83_results>REM Try to download test file user, as this is last file created by report 
+
+C:\appl\ci\d83_results>C:\appl\WorkTools\wget\wget --secure-protocol=auto --http-user=BATCH_TEST --http-password=Password123 http://sapq152.statoil.no:8014/sap/bc/resources/ci_results/D83_CI_ABAP_UNIT_USER.XML -O C:\appl\ci\d83_results/D83_CI_ABAP_UNIT_USER.XML 
+SYSTEM_WGETRC = c:/progra~1/wget/etc/wgetrc
+syswgetrc = c:/progra~1/wget/etc/wgetrc
+--2014-07-03 04:03:57--  http://sapq152.statoil.no:8014/sap/bc/resources/ci_results/D83_CI_ABAP_UNIT_USER.XML
+Resolving sapq152.statoil.no... 10.217.68.10
+Connecting to sapq152.statoil.no|10.217.68.10|:8014... connected.
+HTTP request sent, awaiting response... 401 Unauthorized
+Connecting to sapq152.statoil.no|10.217.68.10|:8014... connected.
+HTTP request sent, awaiting response... 204 HTTP standard status code
+Length: 0 [text/html]
+Saving to: `C:/appl/ci/d83_results/D83_CI_ABAP_UNIT_USER.XML'
+
+     0K                                                        0,00 =0s
+
+2014-07-03 04:03:57 (0,00 B/s) - `C:/appl/ci/d83_results/D83_CI_ABAP_UNIT_USER.XML' saved [0/0]
+
+
+C:\appl\ci\d83_results>REM Check if file is not empty 
+
+C:\appl\ci\d83_results>set "filter=C:\appl\ci\d83_results\D83_CI_ABAP_UNIT_USER.XML" 
+
+C:\appl\ci\d83_results>for %A in (C:\appl\ci\d83_results\D83_CI_ABAP_UNIT_USER.XML) do if %~zA NEQ 0 GOTO waitloopend 
+
+C:\appl\ci\d83_results>if 0 NEQ 0 GOTO waitloopend 
+File not downloaded, waiting 30 seconds
+
+C:\appl\ci\d83_results>goto waitloop 
+### Download CI_ABAP_COVERAGE_PACKAGE.XML ###
+
+C:\appl\ci\d83_results>REM Try to download test file user, as this is last file created by report 
+
+C:\appl\ci\d83_results>C:\appl\WorkTools\wget\wget --secure-protocol=auto --http-user=BATCH_TEST --http-password=Password123 http://sapq152.statoil.no:8014/sap/bc/resources/ci_results/D83_CI_ABAP_UNIT_USER.XML -O C:\appl\ci\d83_results/D83_CI_ABAP_UNIT_USER.XML 
+SYSTEM_WGETRC = c:/progra~1/wget/etc/wgetrc
+syswgetrc = c:/progra~1/wget/etc/wgetrc
+--2014-07-03 04:04:26--  http://sapq152.statoil.no:8014/sap/bc/resources/ci_results/D83_CI_ABAP_UNIT_USER.XML
+Resolving sapq152.statoil.no... 10.217.68.10
+Connecting to sapq152.statoil.no|10.217.68.10|:8014... connected.
+HTTP request sent, awaiting response... 401 Unauthorized
+Connecting to sapq152.statoil.no|10.217.68.10|:8014... connected.
+HTTP request sent, awaiting response... 204 HTTP standard status code
+Length: 0 [text/html]
+Saving to: `C:/appl/ci/d83_results/D83_CI_ABAP_UNIT_USER.XML'
+
+     0K                                                        0,00 =0s
+
+2014-07-03 04:04:26 (0,00 B/s) - `C:/appl/ci/d83_results/D83_CI_ABAP_UNIT_USER.XML' saved [0/0]
+
+
+C:\appl\ci\d83_results>REM Check if file is not empty 
+
+C:\appl\ci\d83_results>set "filter=C:\appl\ci\d83_results\D83_CI_ABAP_UNIT_USER.XML" 
+
+C:\appl\ci\d83_results>for %A in (C:\appl\ci\d83_results\D83_CI_ABAP_UNIT_USER.XML) do if %~zA NEQ 0 GOTO waitloopend 
+
+C:\appl\ci\d83_results>if 0 NEQ 0 GOTO waitloopend 
+File not downloaded, waiting 30 seconds
+
+C:\appl\ci\d83_results>goto waitloop 
+### Download CI_ABAP_COVERAGE_PACKAGE.XML ###
+
+C:\appl\ci\d83_results>REM Try to download test file user, as this is last file created by report 
+
+C:\appl\ci\d83_results>C:\appl\WorkTools\wget\wget --secure-protocol=auto --http-user=BATCH_TEST --http-password=Password123 http://sapq152.statoil.no:8014/sap/bc/resources/ci_results/D83_CI_ABAP_UNIT_USER.XML -O C:\appl\ci\d83_results/D83_CI_ABAP_UNIT_USER.XML 
+SYSTEM_WGETRC = c:/progra~1/wget/etc/wgetrc
+syswgetrc = c:/progra~1/wget/etc/wgetrc
+--2014-07-03 04:04:55--  http://sapq152.statoil.no:8014/sap/bc/resources/ci_results/D83_CI_ABAP_UNIT_USER.XML
+Resolving sapq152.statoil.no... 10.217.68.10
+Connecting to sapq152.statoil.no|10.217.68.10|:8014... connected.
+HTTP request sent, awaiting response... 401 Unauthorized
+Connecting to sapq152.statoil.no|10.217.68.10|:8014... connected.
+HTTP request sent, awaiting response... 204 HTTP standard status code
+Length: 0 [text/html]
+Saving to: `C:/appl/ci/d83_results/D83_CI_ABAP_UNIT_USER.XML'
+
+     0K                                                        0,00 =0s
+
+2014-07-03 04:04:55 (0,00 B/s) - `C:/appl/ci/d83_results/D83_CI_ABAP_UNIT_USER.XML' saved [0/0]
+
+
+C:\appl\ci\d83_results>REM Check if file is not empty 
+
+C:\appl\ci\d83_results>set "filter=C:\appl\ci\d83_results\D83_CI_ABAP_UNIT_USER.XML" 
+
+C:\appl\ci\d83_results>for %A in (C:\appl\ci\d83_results\D83_CI_ABAP_UNIT_USER.XML) do if %~zA NEQ 0 GOTO waitloopend 
+
+C:\appl\ci\d83_results>if 0 NEQ 0 GOTO waitloopend 
+File not downloaded, waiting 30 seconds
+
+C:\appl\ci\d83_results>goto waitloop 
+### Download CI_ABAP_COVERAGE_PACKAGE.XML ###
+
+C:\appl\ci\d83_results>REM Try to download test file user, as this is last file created by report 
+
+C:\appl\ci\d83_results>C:\appl\WorkTools\wget\wget --secure-protocol=auto --http-user=BATCH_TEST --http-password=Password123 http://sapq152.statoil.no:8014/sap/bc/resources/ci_results/D83_CI_ABAP_UNIT_USER.XML -O C:\appl\ci\d83_results/D83_CI_ABAP_UNIT_USER.XML 
+SYSTEM_WGETRC = c:/progra~1/wget/etc/wgetrc
+syswgetrc = c:/progra~1/wget/etc/wgetrc
+--2014-07-03 04:05:25--  http://sapq152.statoil.no:8014/sap/bc/resources/ci_results/D83_CI_ABAP_UNIT_USER.XML
+Resolving sapq152.statoil.no... 10.217.68.10
+Connecting to sapq152.statoil.no|10.217.68.10|:8014... connected.
+HTTP request sent, awaiting response... 401 Unauthorized
+Connecting to sapq152.statoil.no|10.217.68.10|:8014... connected.
+HTTP request sent, awaiting response... 204 HTTP standard status code
+Length: 0 [text/html]
+Saving to: `C:/appl/ci/d83_results/D83_CI_ABAP_UNIT_USER.XML'
+
+     0K                                                        0,00 =0s
+
+2014-07-03 04:05:25 (0,00 B/s) - `C:/appl/ci/d83_results/D83_CI_ABAP_UNIT_USER.XML' saved [0/0]
+
+
+C:\appl\ci\d83_results>REM Check if file is not empty 
+
+C:\appl\ci\d83_results>set "filter=C:\appl\ci\d83_results\D83_CI_ABAP_UNIT_USER.XML" 
+
+C:\appl\ci\d83_results>for %A in (C:\appl\ci\d83_results\D83_CI_ABAP_UNIT_USER.XML) do if %~zA NEQ 0 GOTO waitloopend 
+
+C:\appl\ci\d83_results>if 0 NEQ 0 GOTO waitloopend 
+File not downloaded, waiting 30 seconds
+
+C:\appl\ci\d83_results>goto waitloop 
+### Download CI_ABAP_COVERAGE_PACKAGE.XML ###
+
+C:\appl\ci\d83_results>REM Try to download test file user, as this is last file created by report 
+
+C:\appl\ci\d83_results>C:\appl\WorkTools\wget\wget --secure-protocol=auto --http-user=BATCH_TEST --http-password=Password123 http://sapq152.statoil.no:8014/sap/bc/resources/ci_results/D83_CI_ABAP_UNIT_USER.XML -O C:\appl\ci\d83_results/D83_CI_ABAP_UNIT_USER.XML 
+SYSTEM_WGETRC = c:/progra~1/wget/etc/wgetrc
+syswgetrc = c:/progra~1/wget/etc/wgetrc
+--2014-07-03 04:05:54--  http://sapq152.statoil.no:8014/sap/bc/resources/ci_results/D83_CI_ABAP_UNIT_USER.XML
+Resolving sapq152.statoil.no... 10.217.68.10
+Connecting to sapq152.statoil.no|10.217.68.10|:8014... connected.
+HTTP request sent, awaiting response... 401 Unauthorized
+Connecting to sapq152.statoil.no|10.217.68.10|:8014... connected.
+HTTP request sent, awaiting response... 200 HTTP standard status code
+Length: 82543 (81K) [text/html]
+Saving to: `C:/appl/ci/d83_results/D83_CI_ABAP_UNIT_USER.XML'
+
+     0K .......... .......... .......... .......... .......... 62% 30,1M 0s
+    50K .......... .......... ..........                      100% 65,2M=0,002s
+
+2014-07-03 04:05:54 (37,8 MB/s) - `C:/appl/ci/d83_results/D83_CI_ABAP_UNIT_USER.XML' saved [82543/82543]
+
+
+C:\appl\ci\d83_results>REM Check if file is not empty 
+
+C:\appl\ci\d83_results>set "filter=C:\appl\ci\d83_results\D83_CI_ABAP_UNIT_USER.XML" 
+
+C:\appl\ci\d83_results>for %A in (C:\appl\ci\d83_results\D83_CI_ABAP_UNIT_USER.XML) do if %~zA NEQ 0 GOTO waitloopend 
+
+C:\appl\ci\d83_results>if 82543 NEQ 0 GOTO waitloopend 
+File found C:\appl\ci\d83_results\D83_CI_ABAP_COVERAGE_PACKAGE.XML
+5. Unlock test run on server
+
+C:\appl\ci\d83_results>C:\appl\WorkTools\wget\wget --secure-protocol=auto --http-user=BATCH_TEST --http-password=Password123 http://sapq152.statoil.no:8014/sap/bc/resources/ci_results/DELLOCK -O C:\appl\ci\d83_results\unlock.log 
+SYSTEM_WGETRC = c:/progra~1/wget/etc/wgetrc
+syswgetrc = c:/progra~1/wget/etc/wgetrc
+--2014-07-03 04:05:54--  http://sapq152.statoil.no:8014/sap/bc/resources/ci_results/DELLOCK
+Resolving sapq152.statoil.no... 10.217.68.10
+Connecting to sapq152.statoil.no|10.217.68.10|:8014... connected.
+HTTP request sent, awaiting response... 401 Unauthorized
+Connecting to sapq152.statoil.no|10.217.68.10|:8014... connected.
+HTTP request sent, awaiting response... 200 HTTP standard status code
+Length: 12 [text/html]
+Saving to: `C:/appl/ci/d83_results/unlock.log'
+
+     0K                                                       100% 1,92M=0s
+
+2014-07-03 04:05:54 (1,92 MB/s) - `C:/appl/ci/d83_results/unlock.log' saved [12/12]
+
+Unlock result:
+
+C:\appl\ci\d83_results>TYPE C:\appl\ci\d83_results\unlock.log 
+Run unlocked6. Downloading other all files
+### Download CI_ABAP_COVERAGE_PACKAGE.XML ###
+
+C:\appl\ci\d83_results>C:\appl\WorkTools\wget\wget --secure-protocol=auto --http-user=BATCH_TEST --http-password=Password123 http://sapq152.statoil.no:8014/sap/bc/resources/ci_results/D83_CI_ABAP_COVERAGE_PACKAGE.XML -P C:\appl\ci\d83_results 
+SYSTEM_WGETRC = c:/progra~1/wget/etc/wgetrc
+syswgetrc = c:/progra~1/wget/etc/wgetrc
+--2014-07-03 04:05:54--  http://sapq152.statoil.no:8014/sap/bc/resources/ci_results/D83_CI_ABAP_COVERAGE_PACKAGE.XML
+Resolving sapq152.statoil.no... 10.217.68.10
+Connecting to sapq152.statoil.no|10.217.68.10|:8014... connected.
+HTTP request sent, awaiting response... 401 Unauthorized
+Connecting to sapq152.statoil.no|10.217.68.10|:8014... connected.
+HTTP request sent, awaiting response... 200 HTTP standard status code
+Length: 697623 (681K) [text/html]
+Saving to: `C:/appl/ci/d83_results/D83_CI_ABAP_COVERAGE_PACKAGE.XML'
+
+     0K .......... .......... .......... .......... ..........  7% 31,2M 0s
+    50K .......... .......... .......... .......... .......... 14% 82,3M 0s
+   100K .......... .......... .......... .......... .......... 22% 89,8M 0s
+   150K .......... .......... .......... .......... .......... 29% 33,4M 0s
+   200K .......... .......... .......... .......... .......... 36%  107M 0s
+   250K .......... .......... .......... .......... .......... 44%  104M 0s
+   300K .......... .......... .......... .......... .......... 51% 41,6M 0s
+   350K .......... .......... .......... .......... .......... 58% 94,4M 0s
+   400K .......... .......... .......... .......... .......... 66% 34,7M 0s
+   450K .......... .......... .......... .......... .......... 73% 81,0M 0s
+   500K .......... .......... .......... .......... .......... 80% 96,0M 0s
+   550K .......... .......... .......... .......... .......... 88% 45,7M 0s
+   600K .......... .......... .......... .......... .......... 95% 80,8M 0s
+   650K .......... .......... .......... .                    100% 66,4M=0,01s
+
+2014-07-03 04:05:55 (58,2 MB/s) - `C:/appl/ci/d83_results/D83_CI_ABAP_COVERAGE_PACKAGE.XML' saved [697623/697623]
+
+### Download CI_ABAP_COVERAGE_USER.XML ###
+
+C:\appl\ci\d83_results>C:\appl\WorkTools\wget\wget --secure-protocol=auto --http-user=BATCH_TEST --http-password=Password123 http://sapq152.statoil.no:8014/sap/bc/resources/ci_results/D83_CI_ABAP_COVERAGE_USER.XML -P C:\appl\ci\d83_results 
+SYSTEM_WGETRC = c:/progra~1/wget/etc/wgetrc
+syswgetrc = c:/progra~1/wget/etc/wgetrc
+--2014-07-03 04:05:55--  http://sapq152.statoil.no:8014/sap/bc/resources/ci_results/D83_CI_ABAP_COVERAGE_USER.XML
+Resolving sapq152.statoil.no... 10.217.68.10
+Connecting to sapq152.statoil.no|10.217.68.10|:8014... connected.
+HTTP request sent, awaiting response... 401 Unauthorized
+Connecting to sapq152.statoil.no|10.217.68.10|:8014... connected.
+HTTP request sent, awaiting response... 200 HTTP standard status code
+Length: 676162 (660K) [text/html]
+Saving to: `C:/appl/ci/d83_results/D83_CI_ABAP_COVERAGE_USER.XML'
+
+     0K .......... .......... .......... .......... ..........  7% 26,3M 0s
+    50K .......... .......... .......... .......... .......... 15% 80,6M 0s
+   100K .......... .......... .......... .......... .......... 22% 94,8M 0s
+   150K .......... .......... .......... .......... .......... 30% 32,9M 0s
+   200K .......... .......... .......... .......... .......... 37%  107M 0s
+   250K .......... .......... .......... .......... .......... 45% 76,6M 0s
+   300K .......... .......... .......... .......... .......... 53% 37,0M 0s
+   350K .......... .......... .......... .......... .......... 60% 77,9M 0s
+   400K .......... .......... .......... .......... .......... 68% 33,2M 0s
+   450K .......... .......... .......... .......... .......... 75%  131M 0s
+   500K .......... .......... .......... .......... .......... 83% 85,9M 0s
+   550K .......... .......... .......... .......... .......... 90% 50,8M 0s
+   600K .......... .......... .......... .......... .......... 98% 63,0M 0s
+   650K ..........                                            100%  251M=0,01s
+
+2014-07-03 04:05:55 (55,1 MB/s) - `C:/appl/ci/d83_results/D83_CI_ABAP_COVERAGE_USER.XML' saved [676162/676162]
+
+### Download CI_ABAP_UNIT_PACKAGE.XML ###
+
+C:\appl\ci\d83_results>C:\appl\WorkTools\wget\wget --secure-protocol=auto --http-user=BATCH_TEST --http-password=Password123 http://sapq152.statoil.no:8014/sap/bc/resources/ci_results/D83_CI_ABAP_UNIT_PACKAGE.XML -P C:\appl\ci\d83_results 
+SYSTEM_WGETRC = c:/progra~1/wget/etc/wgetrc
+syswgetrc = c:/progra~1/wget/etc/wgetrc
+--2014-07-03 04:05:55--  http://sapq152.statoil.no:8014/sap/bc/resources/ci_results/D83_CI_ABAP_UNIT_PACKAGE.XML
+Resolving sapq152.statoil.no... 10.217.68.10
+Connecting to sapq152.statoil.no|10.217.68.10|:8014... connected.
+HTTP request sent, awaiting response... 401 Unauthorized
+Connecting to sapq152.statoil.no|10.217.68.10|:8014... connected.
+HTTP request sent, awaiting response... 200 HTTP standard status code
+Length: 97864 (96K) [text/html]
+Saving to: `C:/appl/ci/d83_results/D83_CI_ABAP_UNIT_PACKAGE.XML'
+
+     0K .......... .......... .......... .......... .......... 52% 27,4M 0s
+    50K .......... .......... .......... .......... .....     100% 41,6M=0,003s
+
+2014-07-03 04:05:55 (32,7 MB/s) - `C:/appl/ci/d83_results/D83_CI_ABAP_UNIT_PACKAGE.XML' saved [97864/97864]
+
+7. Finished. Run subsequent jobs.
+
+C:\appl\ci\d83_results>exit 0 
+Triggering a new build of D83 Unit Tests - Package #240
+Triggering a new build of D83 Unit Tests - User #11
+[DEBUG] Skipping watched dependency update; build not configured with trigger: D83 Unit Tests Full Run #246
+Finished: SUCCESS

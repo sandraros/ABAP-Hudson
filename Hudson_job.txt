@@ -1,0 +1,54 @@
+@ Values of variables defined in hudson settings:
+@ %CI_TEST_FILE_USER% 		= CI_ABAP_UNIT_USER.XML 
+@ %CI_COVERAGE_FILE_USER% 	= CI_ABAP_COVERAGE_USER.XML 
+@ %CI_TEST_FILE_PACKAGE% 	= CI_ABAP_UNIT_PACKAGE.XML 
+@ %CI_COVERAGE_FILE_PACKAGE%	= CI_ABAP_COVERAGE_PACKAGE.XML 
+@ %WGET_DOWNLOAD_PARAMS_D83%	= C:\appl\WorkTools\wget\wget --secure-protocol=auto --http-user=BATCH_TEST --http-password=Password123 http://sapq152.statoil.no:8014/sap/bc/resources/ci_results/
+
+@Echo 1. Deleting 4 files locally
+del %WORKSPACE%\D83_%CI_TEST_FILE_USER%
+del %WORKSPACE%\D83_%CI_COVERAGE_FILE_USER%
+del %WORKSPACE%\D83_%CI_TEST_FILE_PACKAGE%
+del %WORKSPACE%\D83_%CI_COVERAGE_FILE_PACKAGE%
+
+@echo 2. Submit testing
+C:\appl\WorkTools\wget\wget %WGET_DOWNLOAD_PARAMS_D83%/JOBRUN_D83_774888 -O %WORKSPACE%\runjob.log
+@echo Runjob result:
+TYPE %WORKSPACE%\runjob.log
+
+@echo 3. Wait 10 seconds until tests starts and files are cleaned in SAP
+@ping 127.0.0.1 -n 10 -w 1000 > null
+
+@echo 4. Try to download file periodically
+:waitloop
+
+@echo ### Download %CI_COVERAGE_FILE_PACKAGE% ###
+REM Try to download test file user, as this is last file created by report
+C:\appl\WorkTools\wget\wget %WGET_DOWNLOAD_PARAMS_D83%/D83_%CI_TEST_FILE_USER% -O %WORKSPACE%/D83_%CI_TEST_FILE_USER%
+REM Check if file is not empty
+set "filter=%WORKSPACE%\D83_%CI_TEST_FILE_USER%"
+for %%A in (%filter%) do if %%~zA NEQ 0 GOTO waitloopend
+@echo File not downloaded, waiting 30 seconds
+@ping 127.0.0.1 -n 30 -w 1000 > nul
+
+goto waitloop
+: waitloopend
+@echo File found %WORKSPACE%\D83_%CI_COVERAGE_FILE_PACKAGE%
+
+@echo 5. Unlock test run on server
+C:\appl\WorkTools\wget\wget %WGET_DOWNLOAD_PARAMS_D83%/DELLOCK -O %WORKSPACE%\unlock.log
+@echo Unlock result:
+TYPE %WORKSPACE%\unlock.log
+
+@echo 6. Downloading other all files
+
+@echo ### Download %CI_COVERAGE_FILE_PACKAGE% ###
+C:\appl\WorkTools\wget\wget %WGET_DOWNLOAD_PARAMS_D83%/D83_%CI_COVERAGE_FILE_PACKAGE% -P %WORKSPACE%
+
+@echo ### Download %CI_COVERAGE_FILE_USER% ###
+C:\appl\WorkTools\wget\wget %WGET_DOWNLOAD_PARAMS_D83%/D83_%CI_COVERAGE_FILE_USER% -P %WORKSPACE%
+
+@echo ### Download %CI_TEST_FILE_PACKAGE% ###
+C:\appl\WorkTools\wget\wget %WGET_DOWNLOAD_PARAMS_D83%/D83_%CI_TEST_FILE_PACKAGE% -P %WORKSPACE%
+
+@echo 7. Finished. Run subsequent jobs.

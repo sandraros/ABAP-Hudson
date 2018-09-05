@@ -1,0 +1,180 @@
+FUNCTION __SABP_AU_TEST_ITEMS_FROM_IDE .
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""$"$\SE:(1) Function Module __SABP_AU_TEST_ITEMS_FROM_IDE, Start                                                                                              A
+*$*$-Start: (1)---------------------------------------------------------------------------------$*$*
+ENHANCEMENT 2  ZCAGS_CI_BATCH_FLAG_DISABLE.    "active version
+
+  IF ( zcl_cags_ci_report=>get_instance( )->is_on( ) = abap_true ).
+
+    sy-batch = abap_false.
+
+  ENDIF.
+
+ENDENHANCEMENT.
+*$*$-End:   (1)---------------------------------------------------------------------------------$*$*
+*"----------------------------------------------------------------------
+*"*"Local Interface:
+*"  IMPORTING
+*"     REFERENCE(TADIR_KEYS) TYPE  SABP_T_TADIR_KEYS
+*"     REFERENCE(WITH_COVERAGE) TYPE  ABAP_BOOL
+*"     REFERENCE(LIMIT_ON_DURATION_CATEGORY) TYPE
+*"        SAUNIT_D_ALLOWED_RT_DURATION OPTIONAL
+*"     REFERENCE(LIMIT_ON_RISK_LEVEL) TYPE  SAUNIT_D_ALLOWED_RISK_LEVEL
+*"       OPTIONAL
+*"----------------------------------------------------------------------
+  data:
+    dummy             type c length 1,
+    is_Authorized     type abap_Bool,
+    test_Keys         type sabp_T_Tadir_Keys,
+    temp_Keys         type sabp_T_Tadir_Keys,
+    meta_Missing_Keys type sabp_T_Tadir_Keys,
+    tadir_Key         type sabp_S_Tadir_Key,
+    cov_Key           type saunit_D_Coverage_Analysis_Key,
+    has_Tests         type abap_Bool,
+    aunit_Factory     type ref to cl_Aunit_Factory,
+    aunit_Task        type ref to if_Aunit_Task,
+    aunit_Listener    type ref to if_Aunit_Listener,
+    prog_Info         type if_Aunit_Prog_Info_Types=>ty_S_Program.
+
+  if ( abap_True eq sy-batch ).
+    return.
+  endif.
+
+  is_Authorized =
+    cl_Aunit_Permission_Control=>is_Authorized_To_Use_In_Ide(
+      obj_Name = tadir_Key-obj_Name
+      obj_Type = tadir_Key-obj_Type ).
+
+  if ( abap_False eq is_Authorized ).
+    return.
+  endif.
+
+  " compute tadir keys
+  loop at tadir_Keys into tadir_Key.
+    case tadir_Key-obj_Type.
+
+      when 'CLAS' or 'FUGR' or 'PROG'.
+        insert tadir_Key into table test_Keys.
+
+      when 'DEVC'.
+        clear temp_Keys.
+        select object as obj_Type obj_Name
+          from tadir                                     "#EC CI_GENBUFF
+          into corresponding fields of table temp_Keys
+          where
+            devclass = tadir_Key-obj_Name and
+            pgmid  eq 'R3TR'              and
+            object in ('CLAS', 'PROG', 'FUGR').
+        insert lines of temp_Keys into table test_Keys.
+
+     endcase.
+  endloop.
+
+  " build task
+  clear temp_Keys.
+  create object aunit_Factory.
+  if ( abap_True eq with_Coverage ).
+    aunit_Listener = lcl_Scov=>create_New_Listener( ).
+    cov_Key = cl_Aunit_Coverage_Tool=>create_New_Key( ).
+  else.
+    aunit_Listener = aunit_Factory->create_Std_Display_Listener( ).
+  endif.
+
+  try.
+    aunit_Task = aunit_Factory->create_Task( aunit_Listener ).
+    if ( limit_On_Risk_Level is not initial ).
+      aunit_Task->restrict_Risk_Level( limit_On_Risk_Level ).
+    endif.
+    if ( limit_On_Duration_Category is not initial ).
+      aunit_Task->restrict_Duration_Category( limit_On_Duration_Category ).
+    endif.
+
+    loop at test_Keys into tadir_Key.
+      " force availibility of up to data program info in the
+      " db tables
+      prog_Info = cl_Aunit_Prog_Info=>get_Program_Info(
+        obj_Name = tadir_Key-obj_Name
+        obj_Type = tadir_Key-obj_Type
+        allow_Commit =    abap_True
+        skip_Class_Info = abap_True ).
+      if ( abap_False eq prog_Info-has_Tests ).
+        continue.
+      endif.
+      has_Tests = abap_True.
+
+      case tadir_Key-obj_Type.
+        when 'CLAS'.
+          aunit_Task->add_Class_Pool( tadir_Key-obj_Name ).
+        when 'PROG'.
+          aunit_Task->add_Program( tadir_Key-obj_Name ).
+        when 'FUGR'.
+          aunit_Task->add_Function_Group( tadir_Key-obj_Name ).
+        when others.
+          continue.
+      endcase.
+
+      " SIDE EFFECT - check if abap unit browser meta data is there
+      select single obj_Name
+        from taunit_Meta_Data
+        into dummy
+        where
+          obj_Name = tadir_Key-obj_Name and
+          obj_Type = tadir_Key-obj_Type and
+          r3state  = 'A'.
+      if ( 0 ne sy-subrc ).
+        insert tadir_Key into table meta_Missing_Keys.
+      endif.
+
+    endloop.
+
+    if ( abap_False eq has_Tests ).
+      if ( cov_Key is not initial ).
+        cl_Aunit_Coverage_Api=>delete_By_Test_Key( cov_Key ).
+      endif.
+      read table tadir_Keys index 1 into tadir_Key.
+      case tadir_Key-obj_Type.
+        when 'CLAS'.
+          message s100 display like 'W' with tadir_Key-obj_Name.
+
+        when 'FUGR'.
+          message s101 display like 'W' with tadir_Key-obj_Name.
+
+        when 'PROG'.
+          message s102 display like 'W' with tadir_Key-obj_Name.
+
+        when 'DEVC'.
+          message s103 display like 'W' with tadir_Key-obj_Name.
+      endcase.
+      return.
+    endif.
+
+    " SIDE EFFECT !!!
+    " carve newly computed test class meta info and coverage
+    " info into the upper layers of the hard disk
+    " without this commit test class handles might require multiple
+    " times that the meta data gets computed as the factory does not
+    " commit on its own
+    call function 'DB_COMMIT'.
+    aunit_Task->run( if_Aunit_Task=>c_Run_mode-catch_Short_Dump ).
+
+  cleanup.
+    if ( cov_Key is not initial ).
+      cl_Aunit_Coverage_Api=>delete_By_Test_Key( cov_Key ).
+    endif.
+  endtry.
+
+  if ( cov_Key is not initial ).
+    cl_Aunit_Coverage_Api=>delete_By_Test_Key( cov_Key ).
+    commit work.
+  endif.
+
+  " SIDE EFFECT
+  " update the abap unit meta repository for the missing keys
+  " woaahh
+  if ( meta_Missing_Keys is not initial ).
+    " initiate cleanup
+    call function 'SABP_AU_UPD_CROSS_REFERENCE'
+      exporting
+        tadir_keys       = meta_Missing_Keys.
+  endif.
+
+ENDFUNCTION.
