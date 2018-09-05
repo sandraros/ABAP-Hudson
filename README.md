@@ -2,14 +2,15 @@
 abapGit version of https://blogs.sap.com/2013/05/23/continuous-integration-automated-abap-unit-tests-in-hudson/ 
 Copyright Adam Krawczyk
 
-sandraros :
+**WARNING (from sandraros) :**
 
-* I took the SAPlink nugget and converted it into abapGit. The tool was running in 731, and I tried to adapt it to 751 **UNSUCCESSFULLY**.
+* I took the SAPlink nugget from Adam Krawczyk and converted it into abapGit. The tool was running in 731, and I tried to adapt it to 751 **UNSUCCESSFULLY**.
 * You will find many lines with comment "751". I commented out the code which couldn't compile, and the code in implicit enhancements. I tried to reattach the enhancements to the right standard objects, but the changes between 731/751 were too big. I had to create missing Z classes, but left them empty.
+* ZCL_CAGS_CI_HTTP_REQ_HANDLER requires https://github.com/sandraros/RESTful-webservices
 * Good luck if you want to continue...
 
 
-Below is the README from Adam Krawczyk :
+**Below is the README from Adam Krawczyk :**
 
 
 ABAP Code folder - contains NUGG file with source code (SAPLink) and implicit enhancements saved manually to text files (search for ZCAGS prefix in SAP code).
